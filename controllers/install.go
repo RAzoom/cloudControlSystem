@@ -34,7 +34,7 @@ func ColdStartSystem(rw http.ResponseWriter, req *http.Request) (int, io.ReadClo
 	if err != nil {
 		panic(err)
 	}
-
+	cli.ContainerCreate()
 	result, err := cli.ImagePull(context.Background(), image , types.ImagePullOptions{})
 
 	return http.StatusOK, result
