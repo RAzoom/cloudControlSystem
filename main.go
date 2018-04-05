@@ -8,6 +8,6 @@ import (
 
 func main() {
 	m := martini.Classic()
-	m.Post("/api/v1/install", controllers.ColdStartSystem)
+	m.Get("/api/v1/install", controllers.InstallScheme)
 	m.RunOnAddr(config.PORT)
 }

@@ -6,35 +6,29 @@ import (
 )
 
 type Service struct {
-	containerConfig  container.Config
-	HostConfig       container.HostConfig
-	NetworkingConfig network.NetworkingConfig
+	ContainerConfig  *container.Config
+	HostConfig       *container.HostConfig
+	NetworkingConfig *network.NetworkingConfig
 }
 
 type Server struct {
-	ip          string
-	dockerPort  string
-	serviceList [] Service
+	Ip          string
+	DockerPort  string
+	Role        string
+	MaxCPU      int
+	FreeCPU     int
+	MaxMemory   int
+	FreeMemory  int
+	ServiceMap map[string]Service
 }
 
 type Group struct {
-	serverList [] Server
+	NginxAddr  string
+	ConsulAddr string
+	ServerMap  map[string]Server
 }
 
 type FinalStruct struct {
-	groupList [] Group
-}
-
-func Install(data FinalStruct) {
-	for _, group := range data.groupList {
-		for _, server := range group.serverList {
-			for _, service := range server.serviceList {
-				containerConf := service.containerConfig
-				hostConf := service.HostConfig
-				netConf := service.NetworkingConfig
-
-				containerConf.Hostname = server.ip
-			}
-		}
-	}
+	MainNginxAddr string
+	GroupMap      map[string]Group
 }
